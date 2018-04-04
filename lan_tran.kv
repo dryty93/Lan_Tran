@@ -1,0 +1,27 @@
+#lan_tran
+
+<Query>
+    BoxLayout:
+        orientation: 'vertical'
+        cols: 8
+
+        TextInput:
+            text: ''
+            id: entry
+            font_size: 20
+
+
+        Button:
+            text: 'search'
+            size_hint : [.2, .3]
+            pos_hint : {'x': .80}
+            on_press: root.ask()
+
+        Label:
+            id: result
+            font_size: 20
+            multiline: True
+            
+
+        
+            
