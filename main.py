@@ -5,6 +5,8 @@ from kivy.uix.popup import Popup
 from kivy.clock import Clock
 import threading
 
+
+
 adjs = {'forever':'plirtjhir', 'all':'plírt', 'alot':'plirt', 'probably':'pírbli', 'red':'riscirt', 'stupid':'ritter',
         'dark':'nwumei', 'night':'nwumweijhir','evening':'nwumweijhirplir', 'stagnantly':'nwujhirli',
         'next':'jonír', "easy": "fajile", 'easy going': 'fajweh', 'skinny':'flirc', 'fat':'gírd', 'fatness':'girjírn', 
@@ -92,24 +94,37 @@ preplst = ["a", "a-dede", "a-inna",
 cont = 2 < 3
 
 class Query(BoxLayout):
+
+# Figure out if the input is multiple words
+
     
     def ask(self):
-
+        
         if ' ' in self.ids.entry.text:
             if self.ids.entry.text not in pros or adjs or nouns or verbs or preps or quest:
+
+# create list if multiple words and assigns number value for number of words
+                
                 wList = self.ids.entry.text.split(' ')
                 wAmt = len(wList)
                 
             else:
                 
                 wList = []
+# if only one word make list empty
 
             for response in wList:
 
+               # print(pros[response])
+                
+# for each word saved in word list
+
                 if response in pros:
-                    
-                    output = pros[response]
-                    self.ids.result.text= output
+
+                    output = pros[response] 
+
+                    self.ids.result.text = output
+
 
                 elif response in adjs:
                     output = adjs[response]
@@ -131,6 +146,11 @@ class Query(BoxLayout):
 
                 elif response in phrases:
                     output = phrases[response]
+
+                else:
+                    output = 'the word',"'", response,"'" + " was not found. Try again. some compound words such as little brother dont exist in Lantuosir. Use a -. (ex. little-brother)" 
+                    self.ids.result.text = output
+    
 
         
         if self.ids.entry.text in pros:
@@ -203,10 +223,7 @@ while cont == True:
             print(quest[response])
         elif trans in phrases:
             print(phrases[trans])
-        else:
-            print('the word',"'", response,"'" + ' was not found. Try again. some compound words')
-            print("such as little brother don't exist in Lantuosir. Use a -. (ex. little-brother)")
-    
+        
         
 
         
