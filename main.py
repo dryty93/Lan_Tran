@@ -15,11 +15,11 @@ lexicon = {
         "white":",blankirt","thoroughly" : "bonírli", 'bright':'ilum', 'charismatic':'jírsmiweh',
         'brown':'kacirt', 'hot':'kuh','hell-like':'kuhplirtli','black':'nekírt', 'powerless':'nwuhpír',
         'next':'siguír',
-        "good or beautiful":"bonír", "very good":"bonírplir", "excellent":"bonírplirt",
+        "good":"bonír", "great":"bonírplir", "excellent":"bonírplirt",'little' :'írto',
 
 
             #nouns
-           'types': 'tirps', 'movement':'víjín', 'vision':'vision', 'whole-world':'tirahplírt',
+           'types' : 'tirps', 'movement':'víjín', 'vision':'vision', 'whole-world':'tirahplírt',
          'bluntness':'yavírn', 'close-range-murder':'yavírjide',
         'nose':'wumzír', 'image': 'wehvír', 'nostrils':'wumzirplír', 'victory':'vicjírn','matter':'weh',
          'other':'tras','verse':'vírse','embarresment':'wehjide','cold-blooded-murder':'tírbjide',
@@ -27,7 +27,8 @@ lexicon = {
          'human-extinction':'sírjin', 'society':'sírjin', 'body': 'tiraweh', 'stone':'tira-okpukír','hell':'terrir',
          'south':'sír', 'sister':'sisma','southern':'síjírn','others':'sírj', 'smart':'smirt',
         'double-murder':'pírehjíde','flat':'plairn', 'child':'pickney', 'conflict':'píreh', 'sometimes':'plirjhir',
-        'message':'okwíjírn', 'heart':'oozirjír', 'mobility':'oozírjírn', 'father':'prair', 'everything':'plirtweh',
+        'message':'okwíjírn', 'heart':'oozirjír', 'mobility':'oozírjírn', 'father':'prair', 'son':'bwoy-pickney',
+        'daughter':'ngyal-pickney', 'everything':'plirtweh',
          'bones':'okpukpír','tommorow':'neímweijhir', 'time':'ojhír', 'word':'okwír', 'door':'oozír',
          'water':'osmír', 'blood':'osmírtaweh', 'eye':'oozírweh', 'pupils':'oorjweplírt','possession':'obtírjírn',
          'nwuhweh': 'variable', 'last':'nuhplír','barren' :'nwuhjadírne', 'unconscious':'nwuhtira',
@@ -46,19 +47,20 @@ lexicon = {
          "boy":"bwoy", "brother":"brahfir", "to be alive": "curonduh", 'eye lids': 'írve-oozirweh',
          "little-brother": "brafírto", 'pregnant':'encírt', 'house':'hiruse','harmony':'jarmírne', 'fire':'kuhplir',
          "hard-work" : "armírplír", "adjective":"ajirtev", "easy":"nwuarmír",'destruction':'detrírplírt',
+        "pig" : "swírn",
 
         #verbs
 
         'create':'malirweh', 'mortar': 'mortír', 'die':'nwuh','cannot':'nwuhpír','lie':'nwuhkwír', 'dislike':'nwuhjír',
         'like':'jír', 'kill':'jide',  'know':'jírse', 'force':'jyub', 'tell':'jíatír','burn' :'kunír',
-         'own':'tenír',
+         'own':'tenír', 'give':'díhr',
          'stay':'restír','understand':'sensír','happen':'sucidír','hear':'senwír','impress':'vírjide',
          'win':'vicír','come':'vírn','see':'veyír' , 'rebel':'tuhrnír','look':'veícir','unsettle':'tírb',
          'reach':'gantir', 'close': 'imecír', 'shut':'imejír', 'think (mediate)' :'íkjwaír','complete-destruction':'plírtwehjide',
-         'upset or infuriate':'infierír', 'go' :'irte', 'loose':'nubtenír', 'live':'nduzi', 'get':'obtír',
+         'upset':'infierír', 'go' :'irte', 'loose':'nubtenír', 'live':'nduzi', 'get':'obtír',
          "add": "ahsumír", "work" : "armír", "function":"armírbon","can":"pír",'must or should':'faírte',
-         "see": "veyír", "functions":"Armírbon", 'discover':'discírve', 'to do':'dírn','have':'nwír', 'can':'pír',
-         'scatter':'diaspír', 'detenír':'stop', ' detrír': 'destroy', 'form or shape':'fírme','allow':'permír',
+         "see": "veyír", "functions":"armírbon", 'discover':'discírve', 'do':'dírn','have':'nwír', 'can':'pír',
+         'scatter':'diaspír', 'stop':'detenír', 'destroy':'detrír' , 'form or shape':'fírme','allow':'permír',
 
         #preps
         'right-here':'yasa',
@@ -91,6 +93,10 @@ lexicon = {
         'sometimes': "a-jhíer",'at-times': "aplir",
          "again":"anír", "more": "anírplirt",
 
+        #negations:
+
+        "no": "buh", "not": "bun", 
+
 }
 
 cont = 2 < 3
@@ -108,24 +114,31 @@ class Query(BoxLayout):
                 
                 answer = ' '.join(wList)
                 print(answer)
+
+            
+
+                for response in wList:
                 
-            else:
+                    if response in lexicon:
+                    
+
+                        newList.append(lexicon[response])
+                        print(newList)
+                        fTrans = ' '.join(newList)
+                        output = fTrans[:] 
+                        self.ids.result.text = output
                 
+        else:
+            if self.ids.entry.text in lexicon:
+            
+                output = lexicon[self.ids.entry.text]
+                self.ids.result.text = output
                 wList = []
-                
-                
-                
+            else:
 
-            for response in wList:
-                
-                if response in lexicon:                    
-                    newList.append(lexicon[response])
-                    print(newList)
-                    fTrans = ' '.join(newList)
-                    output = fTrans[:] 
-                    self.ids.result.text = output
-
-
+                output = "Sorry that word doesn't exist. Try Again. Use - for compund words like 'little-brother.'"
+                self.ids.result.text = output
+                                
 
         def lanToEng(self):
             pass
