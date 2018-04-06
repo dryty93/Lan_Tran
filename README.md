@@ -7,7 +7,10 @@ just input what you would like to translate in lower case letters without using
 punctuation marks (I am still developing this part of the language).
 At this time, Lan_Tran supports English to Lantuosir translation.
 It is an essential tool to begin writing in the Lantuosir and studying it.
-Note all words and phrases do not tranlsate exactly into Lantuosir. Some words
-simply do not exist in the languages so be sure to check the dictionary within the main
-file. An online dictionary will be available shortly. 
+
+Note: All words and phrases do not tranlsate exactly into Lantuosir. Some words
+simply do not exist in the language so be sure to check the dictionary within the main
+file. 
+
+An online dictionary will be available shortly. 
 
