@@ -1,27 +1,40 @@
 #lan_tran
 
 <Query>
+        
     BoxLayout:
         orientation: 'vertical'
-        cols: 8
+     
 
+        
+        Label:
+            background_color: 0, 0, 1, 1
+            text: 'Lan_Tran'
+            font_size: 40
+
+        Label:
+            text: "Word Lookup"
+            font_size: 20
+           
+            
         TextInput:
             text: ''
             id: entry
             font_size: 20
+            size_hint: [10,.9 ]
 
-
-        Button:
-            text: 'search'
-            size_hint : [.2, .3]
-            pos_hint : {'x': .80}
-            on_press: root.ask()
-
+        
         Label:
             id: result
             font_size: 20
-            multiline: True
             
 
+        Button:
+            text: 'Translate'
+            size_hint : [1, .5]
+            on_press: root.engToLan()
+    
+       
         
             
+
