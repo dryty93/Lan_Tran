@@ -3,7 +3,8 @@ from kivy.app import App
 from kivy.uix.label import Label
 from kivy.uix.popup import Popup
 from kivy.clock import Clock
-import threading
+from kivy.lang import Builder
+ 
 
 lexicon = {
         #adjectives
@@ -25,7 +26,7 @@ lexicon = {
          'other':'tras','verse':'vírse','embarresment':'wehjide','cold-blooded-murder':'tírbjide',
         'tongue':'reh', 'mouth':'rechír','language':'rejah','dictionary':'sensaíre', 'art':'sensweh','earth':'tirah',
          'human-extinction':'sírjin', 'society':'sírjin', 'body': 'tiraweh', 'stone':'tira-okpukír','hell':'terrir',
-         'south':'sír', 'sister':'sisma','southern':'síjírn','others':'sírj', 'smart':'smirt',
+         'south':'sír', 'sister':'sisma', 'little-sister':'sismírto', 'southern':'síjírn','others':'sírj', 'smart':'smirt',
         'double-murder':'pírehjíde','flat':'plairn', 'child':'pickney', 'conflict':'píreh', 'sometimes':'plirjhir',
         'message':'okwíjírn', 'heart':'oozirjír', 'mobility':'oozírjírn', 'father':'prair', 'son':'bwoy-pickney',
         'daughter':'ngyal-pickney', 'everything':'plirtweh',
@@ -105,46 +106,57 @@ class Query(BoxLayout):
     
     def engToLan(self):
 
+        #check for spaces in user input
+        #when space found split the string into list
+        #join each word into into list for each iteration
+
         if ' ' in self.ids.entry.text:
-            if self.ids.entry.text not in lexicon:
-                wList = self.ids.entry.text.split(' ')
-                wAmt = len(wList)
-                newList = []
-
+            wList = self.ids.entry.text.split(' ')
+            wAmt = len(wList)
+            newList = [] 
+            answer = ' '.join(wList)
+            print(wList)
+            print(wAmt)
+           
+            for response in wList:
                 
-                answer = ' '.join(wList)
-                print(answer)
-
-            
-
-                for response in wList:
-                
-                    if response in lexicon:
+                if response in lexicon:
                     
 
-                        newList.append(lexicon[response])
-                        print(newList)
-                        fTrans = ' '.join(newList)
-                        output = fTrans[:] 
-                        self.ids.result.text = output
+                    newList.append(lexicon[response])
+                    print(newList)
+                    fTrans = ' '.join(newList)
+                    output = fTrans[:] 
+                    self.ids.result.text = output
+
+               # if 'ing' in self.ids.entry.text:
+                #    present = wList.append('a')
                 
         else:
+    #directions for if there is no space in the user input
+            
             if self.ids.entry.text in lexicon:
             
                 output = lexicon[self.ids.entry.text]
                 self.ids.result.text = output
                 wList = []
             else:
+        #this is where the english to lantousir conditions will be declared
+                
+                if 'í' in self.ids.entry.text:
+                    output = self.ids.entry.text
+                    self.ids.result.text = output
+                    
 
-                output = "Sorry that word doesn't exist. Try Again. Use - for compund words like 'little-brother.'"
-                self.ids.result.text = output
+                else:
+
+                    output = "Sorry that word doesn't exist. Try Again. Use - for compund words like 'little-brother.'"
+                    self.ids.result.text = output
                                 
 
-        def lanToEng(self):
-            pass
-
+    
             
-                    
+                            
                           
            
         
