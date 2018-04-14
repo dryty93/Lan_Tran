@@ -1,40 +1,89 @@
 #lan_tran
 
 <Query>
-        
+    padding: 10
+    rows: 4
+    color: 0, 1, 0, 1
+    canvas.before:
+        Color:
+            rgba: 1,1,1,1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    
     BoxLayout:
+        
+        
         orientation: 'vertical'
-     
 
         
         Label:
-            background_color: 0, 0, 1, 1
             text: 'Lan_Tran'
             font_size: 40
+            color: 0, 1, 1, 1
+                
+            
 
         Label:
+            
             text: "Word Lookup"
             font_size: 20
+            
            
             
         TextInput:
+            multline: True
             text: ''
             id: entry
             font_size: 20
-            size_hint: [10,.9 ]
+            
+            
 
         
         Label:
+            multiline: True
             id: result
             font_size: 20
+            color: 1, .5, .7, 1
+            canvas.before:
+                Color:
+                    rgba: 0,1,1,1
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+
+
+
+
+
+                    
+            
+        AnchorLayout:
+            
             
 
-        Button:
-            text: 'Translate'
-            size_hint : [1, .5]
-            on_press: root.engToLan()
+            Button:
+                text: 'Translate'
+                size_hint : [.2, .5]
+                on_press: root.engToLan()
+                color: 0, 1, 1, 1
+                canvas.before:
+                    Color:
+                        rgba: 0, 0, 0, 1
+
+            Button:
+                text: 'Translate'
+                size_hint : [.2, .5]
+                on_press: root.engToLan()
+                color: 0, 1, 1, 1
+                canvas.before:
+                    Color:
+                        rgba: 0, 0, 0, 1
+        
+
     
        
         
             
+
 
