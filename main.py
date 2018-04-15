@@ -100,30 +100,118 @@ lexicon = {
 
 }
 
-cont = 2 < 3
+pastMark = ['ed',]
+past = 0
+
+#individual characters List
+indCharsList = []
 
 class Query(BoxLayout):
+
     
     def engToLan(self):
-
+        global past
+        global indCharsList
         #check for spaces in user input
         #when space found split the string into list
         #join each word into into list for each iteration
+
+        
 
         if ' ' in self.ids.entry.text:
             wList = self.ids.entry.text.split(' ')
             wAmt = len(wList)
             newList = [] 
             answer = ' '.join(wList)
-            print(wList)
-            print(wAmt)
+            ANSWER = answer.lower()
+
+        # checking if this is past tense
+
+        # split entry into indiv chars if the last two chars in the potential past tense
+        #words are ed. this is one way that i am handling the past tense. NEed to figure
+        #something out for irregular past tense verbs
+            
+            if 'ed' in self.ids.entry.text:
+                for chars in self.ids.entry.text:
+                
+                    if chars =='e':
+                        
+                        indCharsList.append('e')
+                        print('found an e')
+                        
+
+                        #if indCharsLi
+
+                    if chars == 'd':
+                        indCharsList.append('d')
+                        past = 1 > 2
+                        print('found a d')   
+                            #print(indCharsList)
+
+                    else:
+                        #indCharsList.append(' ')
+                        print('nothing')
+
+               # print(indCharsList[-1])
+                #print(indCharsList[:-2])
+
+                if indCharsList[-1:] == 'd' and indCharsList[:-2] == 'e':
+                  
+                        
+                    print(past)
+                    past = 1 < 2
+                        
+                    while past:
+                        wList2 = str(indCharsList[:]).split('d')
+                        wList3 = str(wList2[:]).split(' ')
+                        pastProps = []
+                        pastProps.append(wList2)
+                        pastNow = ','.join(wList2)
+                        #print(wList3)
+                        #print(indCharsList)
+                        #print(wList3)
+                        past = 1 > 2
+
+                        
+                else:
+                    past = 1 > 2
+                #    innerCharsList.remove('e')
+                    
+                    print('no e')
+
+                    print('future or present')
+
+    
+                
+                    '''
+                    for char in wList:
+                        n = char.split(' ')
+                        if 'ed' in n:
+                            print(n)
+                            print('ed found')
+                        
+                            pastProps = []
+                            #pastNow = ''.join(pastID)
+                            pastProps.append(wList)
+                            pastNow = pastProps.split(' ')
+                            
+                        #print(pastNow)
+                    print(pastNow)
+'''
+            
+                    
+                
+               # print(wList)
+            #print(wAmt)
            
             for response in wList:
+
+                respond = response.lower()
                 
-                if response in lexicon:
+                if respond in lexicon:
                     
 
-                    newList.append(lexicon[response])
+                    newList.append(lexicon[respond])
                     print(newList)
                     fTrans = ' '.join(newList)
                     output = fTrans[:] 
@@ -131,13 +219,16 @@ class Query(BoxLayout):
 
                # if 'ing' in self.ids.entry.text:
                 #    present = wList.append('a')
-                
+
+                 
         else:
     #directions for if there is no space in the user input
+
+            oneWordResponse = self.ids.entry.text.lower()
             
-            if self.ids.entry.text in lexicon:
+            if oneWordResponse in lexicon:
             
-                output = lexicon[self.ids.entry.text]
+                output = lexicon[oneWordResponse]
                 self.ids.result.text = output
                 wList = []
             else:
@@ -145,14 +236,14 @@ class Query(BoxLayout):
                 
                 if 'í' in self.ids.entry.text:
                     output = self.ids.entry.text
-                    self.ids.result.text = output
+                    #self.ids.result.text = output
                     
 
                 else:
 
                     output = "Sorry that word doesn't exist. Try Again. Use - for compund words like 'little-brother.'"
                     self.ids.result.text = output
-                                
+                        
 
     
             
