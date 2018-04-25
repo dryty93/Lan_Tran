@@ -1,3 +1,10 @@
+'''
+author: Tyler J Dryden
+app: Lan_Tran
+twitter: @codeforthestreets
+'''
+
+
 from kivy.uix.boxlayout import BoxLayout
 from kivy.app import App
 from kivy.uix.label import Label
