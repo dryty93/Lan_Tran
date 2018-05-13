@@ -2,6 +2,7 @@
 
 <Query>
     padding: 10
+    border: 10
     rows: 4
     color: 0, 1, 0, 1
     canvas.before:
@@ -58,12 +59,12 @@
 
                     
             
-        AnchorLayout:
+        BoxLayout:
             
             
 
             Button:
-                text: 'Translate'
+                text: 'Eng->Lan'
                 size_hint : [.2, .5]
                 on_press: root.engToLan()
                 color: 0, 1, 1, 1
@@ -72,9 +73,9 @@
                         rgba: 0, 0, 0, 1
 
             Button:
-                text: 'Translate'
+                text: 'Eng<-Lan'
                 size_hint : [.2, .5]
-                on_press: root.engToLan()
+                on_press: root.lanToEng()
                 color: 0, 1, 1, 1
                 canvas.before:
                     Color:
@@ -83,7 +84,3 @@
 
     
        
-        
-            
-
-
