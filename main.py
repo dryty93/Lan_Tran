@@ -1,3 +1,4 @@
+
 '''
 author: Tyler J Dryden
 app: Lan_Tran
@@ -15,7 +16,7 @@ from kivy.lang import Builder
 
 lexicon = {
         #adjectives
-
+    'adjectives':{
         'forever':'plirtjhir', 'all':'plírt', 'alot':'plirt', 'probably':'pírbli', 'red':'riscirt', 'stupid':'ritter',
         'dark':'nwumei', 'night':'nwumweijhir','evening':'nwumweijhirplir', 'stagnantly':'nwujhirli',
         'next':'jonír', "easy": "fajile", 'easy going': 'fajweh', 'skinny':'flirc', 'fat':'gírd', 'fatness':'girjírn',
@@ -23,10 +24,11 @@ lexicon = {
         "white":",blankirt","thoroughly" : "bonírli", 'bright':'ilum', 'charismatic':'jírsmiweh',
         'brown':'kacirt', 'hot':'kuh','hell-like':'kuhplirtli','black':'nekírt', 'powerless':'nwuhpír',
         'next':'siguír',
-        "good":"bonír", "great":"bonírplir", "excellent":"bonírplirt",'little' :'írto',
+        "good":"bonír", "great":"bonírplir", "excellent":"bonírplirt",'little' :'írto',},
 
 
-            #nouns
+            #nouns]
+    'nouns':{
            'types' : 'tirps', 'movement':'víjín', 'vision':'vision', 'whole-world':'tirahplírt',
          'bluntness':'yavírn', 'close-range-murder':'yavírjide',
         'nose':'wumzír', 'image': 'wehvír', 'nostrils':'wumzirplír', 'victory':'vicjírn','matter':'weh',
@@ -55,10 +57,10 @@ lexicon = {
          "boy":"bwoy", "brother":"brahfir", "to be alive": "curonduh", 'eye lids': 'írve-oozirweh',
          "little-brother": "brafírto", 'pregnant':'encírt', 'house':'hiruse','harmony':'jarmírne', 'fire':'kuhplir',
          "hard-work" : "armírplír", "adjective":"ajirtev", "easy":"nwuarmír",'destruction':'detrírplírt',
-        "pig" : "swírn",
+        "pig" : "swírn",},
 
         #verbs
-
+        'verbs':{
         'create':'malirweh', 'mortar': 'mortír', 'die':'nwuh','cannot':'nwuhpír','lie':'nwuhkwír', 'dislike':'nwuhjír',
         'like':'jír', 'kill':'jide',  'know':'jírse', 'force':'jyub', 'tell':'jíatír','burn' :'kunír',
          'own':'tenír', 'give':'díhr',
@@ -69,8 +71,9 @@ lexicon = {
          "add": "ahsumír", "work" : "armír", "function":"armírbon","can":"pír",'must or should':'faírte',
          "see": "veyír", "functions":"armírbon", 'discover':'discírve', 'do':'dírn','have':'nwír', 'can':'pír',
          'scatter':'diaspír', 'stop':'detenír', 'destroy':'detrír' , 'form or shape':'fírme','allow':'permír',
-
+},
         #preps
+        'preps':{
         'right-here':'yasa',
         'and':'inírt','over or on top of or cover':'írve','instead':'inna-lujír','in':'inna',
          'the':'irle', 'for':'fi', 'because':'fircirse','here':'dehyah','all directions':'dehplirt',
@@ -80,8 +83,9 @@ lexicon = {
          "at times": "A-jhíer", "doing" : "a" , 'or' :'ih', 'really or yes': 'ihh', 'but':'píhr', "all-directions":'suh-ah-suh',
          "when":"ahkírjir", 'what': 'kírse', 'how':'kedgírse','who': 'mjahwírse',
          'why':'pírcirse', 'because':'fircirse',
-
+},
 #pros
+ 'pros':{   
 "he": "im","i":"mi",
 "we":"nus",
 'it':'oí',
@@ -94,18 +98,18 @@ lexicon = {
 "hers ":"a-smweí",
 "ourselves" :'nus-mírnes',
 "each-other":"tras-mírmes",
-
+},
         #preplist
-
+        'preplist':{
         "ing":"a","its-there": "a-dede",'its-in-there': "a-inna",
         'sometimes': "a-jhíer",'at-times': "aplir",
          "again":"anír", "more": "anírplirt",
-
+},
         #negations:
-
+        'negations':{
         "no": "buh", "not": "bun",
 
-}
+}}
 
 pastMark = ['ed',]
 
@@ -116,9 +120,13 @@ wList3 = ''
 regChars = []
 past = 2 > 100
 pastProps = []
-
+keys = []
+vals = []
 wList2 = ''
+wList = []
 pastNow = ''
+vToK = {}
+transDirect = 0
 
 
 class Query(BoxLayout):
@@ -140,41 +148,129 @@ class Query(BoxLayout):
         answer = ' '.join(wList)
         ANSWER = answer.lower()
 
+        if transDirect:
+            self.tenseMark()
+
+        else:
+            self.lanToEng()
+            
+    def tenseMark(self):
+
+        global response
+        global respond      
+
         for response in wList:
 
             respond = response.lower()
 
             if past == True:
-                print('kk')
+                self.pastTense()
 
-            if respond in lexicon:
+            if past == False:
 
-                newList.append(lexicon[respond])
-                fTrans = ' '.join(newList)
-                output = fTrans[:]
-                self.ids.result.text = output
+                self.checker()
+
+            
+
+    def checker(self):
+
+        if respond in lexicon['adjectives']:
+            
+            newList.append(lexicon['adjectives'][respond])
+
+
+        if respond in lexicon['verbs']:
+            
+            newList.append(lexicon['verbs'][respond])
+            
+        if respond in lexicon['nouns']:
+            newList.append(lexicon['nouns'][respond])
+            
+        if respond in lexicon['pros']:
+            newList.append(lexicon['pros'][respond])
+
+        if respond in lexicon['preps']:
+
+            newList.append(lexicon['preps'][respond])
+                
+        if respond in lexicon['negations']:
+            newList.append(lexicon['negations'][respond])
+                
+        self.finalOut()
+
+
+          #  if respond not in lexicon['pros']:
+           #     newList.append('NOT FOUND!')
+
+            
+
+    def finalOut(self):
+
+        global fTrans
+        global output
+            
+        fTrans = ' '.join(newList)
+        output = fTrans[:]
+        self.ids.result.text = output
+
+                
+
+    def lanToEng(self):
+        
+        counted = -1
+        transDirect = 2 < 1
+
+
+        for k,v in lexicon['adjectives'].items():
+
+            counted += 1
+            
+
+            keys.append(k)
+            vals.append(v)
+            
+        for amt in wList:
+            if amt in vals:
+            
+                vToK[vals[counted]]:keys[counted]
+                print(counted)
+        print(vToK)
+            
+
+        #if respond in vals:
+            
+       # print(k, v)
+            
+            
+            
 
     def pastTense(self):
+        global pastAns
+        global PASTANS
 
-            for chars in self.ids.entry.text:
-                indCharsList.append(chars)
-                print(indCharsList)
+        for chars in self.ids.entry.text:
+            indCharsList.append(chars)
 
-                if chars == 'd':
+            if chars == 'd':
 
-                    regChars.append(indCharsList)
-                    past = 1 < 2
-                    print('found a d')
-                    print(regChars)
+                regChars.append(indCharsList)
+                past = 1 < 2
+                   
 
-                    if past:
-                        print('past now')
+                if past:
+                    pastAns = ANSWER.split('d')
+                    PASTANS = ''.join(pastAns)
+                    fpastAns = PASTANS.split(' ')
+                    wList.append(fpastAns)
 
-                        wList2 = str(regChars).split("ed")
-                        wList3 = str(wList2).join('ed')
-                        wList3 = []
-                        print('g')
-                        print(wList3)
+                    for pasts in fpastAns:
+            
+                        if pasts in lexicon['verbs']:
+                            newList.append(lexicon['verbs'][pasts]+'d')
+
+
+                            self.finalOut()
+                        
 
 
     def engToLan(self):
@@ -185,10 +281,15 @@ class Query(BoxLayout):
         global pastNow
         global pastProps
 
+        transDirect = 2 > 1
+
+        if ' ' not in self.ids.entry.text:
+            self.oneWord()
 
 
         if ' ' in self.ids.entry.text:
             self.splitter()
+
 
         if 'ed ' in self.ids.entry.text:
                 self.pastTense()
@@ -199,27 +300,58 @@ class Query(BoxLayout):
         #something out for irregular past tense verbs
 
 
-        def oneWord(self):
-            global oneWordResponse
+    def oneWord(self):
+        
+        global oneWordResponse
 
-            oneWordResponse = self.ids.entry.text.lower()
+        oneWordResponse = self.ids.entry.text.lower()
+        
+        if oneWordResponse in lexicon['adjectives']:
 
-            if oneWordResponse in lexicon:
+            output = lexicon['adjectives'][oneWordResponse]
+            self.ids.result.text = output
+            wList = []
 
-                output = lexicon[oneWordResponse]
-                self.ids.result.text = output
-                wList = []
-            else:
-        #this is where the english to lantousir conditions will be declared
+        if oneWordResponse in lexicon['nouns']:
 
-                if 'í' in self.ids.entry.text:
-                    output = self.ids.entry.text
-                    #self.ids.result.text = output
+            output = lexicon['nouns'][oneWordResponse]
+            self.ids.result.text = output
+            wList = []
 
-                else:
+        if oneWordResponse in lexicon['verbs']:
 
-                    output = "Sorry that word doesn't exist. Try Again. Use - for compund words like 'little-brother.'"
-                    self.ids.result.text = output
+            output = lexicon['verbs'][oneWordResponse]
+            self.ids.result.text = output
+            wList = []
+
+        if oneWordResponse in lexicon['preps']:
+
+            output = lexicon['preps'][oneWordResponse]
+            self.ids.result.text = output
+            wList = []
+
+        if oneWordResponse in lexicon['negations']:
+
+            output = lexicon['negations'][oneWordResponse]
+            self.ids.result.text = output
+            wList = []
+
+        if oneWordResponse in lexicon['pros']:
+
+            output = lexicon['pros'][oneWordResponse]
+            self.ids.result.text = output
+            wList = []
+
+        if oneWordResponse in lexicon['preplist']:
+
+            output = lexicon['preplist'][oneWordResponse]
+            self.ids.result.text = output
+            wList = []
+        
+        else:
+
+            output = "Sorry that word doesn't exist. Try Again. Use - for compund words like 'little-brother.'"
+            self.ids.result.text = output
 
 
 
