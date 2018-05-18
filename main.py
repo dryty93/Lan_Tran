@@ -126,7 +126,7 @@ wList2 = ''
 wList = []
 pastNow = ''
 vToK = {}
-transDirect = 0
+transDirect =  1 < 2
 
 
 class Query(BoxLayout):
@@ -173,6 +173,7 @@ class Query(BoxLayout):
             
 
     def checker(self):
+        
 
         if respond in lexicon['adjectives']:
             
@@ -199,8 +200,8 @@ class Query(BoxLayout):
         self.finalOut()
 
 
-          #  if respond not in lexicon['pros']:
-           #     newList.append('NOT FOUND!')
+        if respond not in lexicon:
+             newList.append('NOT FOUND!')
 
             
 
@@ -361,3 +362,4 @@ class Lan_TranApp(App):
 
 if __name__== "__main__":
     Lan_TranApp().run()
+
