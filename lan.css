@@ -1,7 +1,5 @@
 
 
-
-
 .mainCol{
 font-family: sans-serif;
 text-align: center;
@@ -36,10 +34,26 @@ header{
 .youtube-button{
   background-color: lightblue;
   border: 30%;
+  width: 500%
   border-color: lightblue;
+  display: flex;
 
 }
 
 h2{
   font-size: 40px;
+}
+footer{
+  background-color: silver;
+  text-align: center;
+
+}
+
+img{
+  height: 40px;
+
+}
+
+.index{
+  text-align: center;
 }
