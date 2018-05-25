@@ -1,11 +1,14 @@
 
 
+
+
 .mainCol{
 font-family: sans-serif;
 text-align: center;
 background: white;
-display: inline;
-
+display: flex;
+padding: 5%;
+padding-left: 20%;
 }
 
 
@@ -19,16 +22,24 @@ header{
   background-color: silver;
   float: left;
   font-family: sans-serif;
-    padding: 8px;
-
+  padding: 8px;
+  height: 60%;
 }
 
 .sideCol{
   display: block;
-  padding: 8px;
-  background-color: lightgray;
 }
 .RSideCol{
   float: right;
   position: sticky;
+}
+.youtube-button{
+  background-color: lightblue;
+  border: 30%;
+  border-color: lightblue;
+
+}
+
+h2{
+  font-size: 40px;
 }
