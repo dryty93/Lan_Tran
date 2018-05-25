@@ -1,4 +1,5 @@
 
+
 '''
 author: Tyler J Dryden
 app: Lan_Tran
@@ -13,7 +14,9 @@ from kivy.uix.popup import Popup
 from kivy.clock import Clock
 from kivy.lang import Builder
 
-
+vTok = {}
+nKeyList = []
+nValList = []
 lexicon = {
         #adjectives
     'adjectives':{
@@ -200,8 +203,7 @@ class Query(BoxLayout):
         self.finalOut()
 
 
-        if respond not in lexicon:
-             newList.append('NOT FOUND!')
+        
 
             
 
@@ -220,23 +222,18 @@ class Query(BoxLayout):
         
         counted = -1
         transDirect = 2 < 1
-
-
-        for k,v in lexicon['adjectives'].items():
-
-            counted += 1
-            
-
-            keys.append(k)
-            vals.append(v)
-            
-        for amt in wList:
-            if amt in vals:
-            
-                vToK[vals[counted]]:keys[counted]
-                print(counted)
+        
+        reverseKeys = lexicon['adjectives'].keys(), lexicon['pros'].keys(),
+        lexicon['nouns'].keys(),lexicon['preps'].keys(),lexicon['verbs'].keys(),
+        lexicon['negations'].keys(),lexicon['preplist'].keys()
+        
+        reverseVals = lexicon['adjectives'].values(), lexicon['pros'].values(),
+        lexicon['nouns'].values(),lexicon['preps'].values(),lexicon['verbs'].values(),
+        lexicon['negations'].values(),lexicon['preplist'].values()
+        print(reverseVals)
+        counted += 1
+        vTok[reverseKeys] = [reverseVals]
         print(vToK)
-            
 
         #if respond in vals:
             
@@ -362,4 +359,3 @@ class Lan_TranApp(App):
 
 if __name__== "__main__":
     Lan_TranApp().run()
-
