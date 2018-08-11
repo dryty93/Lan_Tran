@@ -1,5 +1,6 @@
 
 
+
 '''
 author: Tyler J Dryden
 app: Lan_Tran
@@ -13,6 +14,7 @@ from kivy.uix.label import Label
 from kivy.uix.popup import Popup
 from kivy.clock import Clock
 from kivy.lang import Builder
+from collections import defaultdict
 
 vTok = {}
 nKeyList = []
@@ -66,7 +68,7 @@ lexicon = {
         'verbs':{
         'create':'malirweh', 'mortar': 'mortír', 'die':'nwuh','cannot':'nwuhpír','lie':'nwuhkwír', 'dislike':'nwuhjír',
         'like':'jír', 'kill':'jide',  'know':'jírse', 'force':'jyub', 'tell':'jíatír','burn' :'kunír',
-         'own':'tenír', 'give':'díhr',
+         'own':'tenír', 'give':'díhr', 'chat':'chatír',
          'stay':'restír','understand':'sensír','happen':'sucidír','hear':'senwír','impress':'vírjide',
          'win':'vicír','come':'vírn','see':'veyír' , 'rebel':'tuhrnír','look':'veícir','unsettle':'tírb',
          'reach':'gantir', 'close': 'imecír', 'shut':'imejír', 'think (mediate)' :'íkjwaír','complete-destruction':'plírtwehjide',
@@ -90,11 +92,13 @@ lexicon = {
 #pros
  'pros':{   
 "he": "im","i":"mi",
+"she":"ji",
+"her":"ji",
 "we":"nus",
 'it':'oí',
 "you":"vus",
 "you all":"unnos",
-"they" : "dims",
+"they" : "dimz",
 "my" :"a-mírn" ,
 "yours" :"a-vírm",
 "his": "a-im ",
@@ -115,6 +119,11 @@ lexicon = {
 }}
 
 pastMark = ['ed',]
+
+lanToEngDict = {}
+
+
+
 
 #individual characters List
 
@@ -139,6 +148,7 @@ class Query(BoxLayout):
         #Next it will join each element of the list for each iteration of response.
 
     def splitter(self):
+
         global wList
         global wAmt
         global newList
@@ -155,7 +165,7 @@ class Query(BoxLayout):
             self.tenseMark()
 
         else:
-            self.lanToEng()
+            self.checker()
             
     def tenseMark(self):
 
@@ -176,17 +186,20 @@ class Query(BoxLayout):
             
 
     def checker(self):
-        
 
+        
         if respond in lexicon['adjectives']:
             
             newList.append(lexicon['adjectives'][respond])
 
+        if respond in lanToEngDict.keys():
+            newList.append(''.join(lanToEngDict[respond]))
+
 
         if respond in lexicon['verbs']:
-            
+
             newList.append(lexicon['verbs'][respond])
-            
+
         if respond in lexicon['nouns']:
             newList.append(lexicon['nouns'][respond])
             
@@ -203,44 +216,49 @@ class Query(BoxLayout):
         self.finalOut()
 
 
-        
-
-            
-
     def finalOut(self):
 
         global fTrans
         global output
-            
+
         fTrans = ' '.join(newList)
         output = fTrans[:]
         self.ids.result.text = output
 
-                
+    def reverseDict(self):
+        global lanToEngDict
+
+        lanToEngDict = defaultdict(list)
+
+        for k,v in lexicon['adjectives'].items():
+           lanToEngDict[v].append(k)
+
+
+        for k,v in lexicon['nouns'].items():
+           lanToEngDict[v].append(k)
+
+        for k,v in lexicon['verbs'].items():
+           lanToEngDict[v].append(k)
+
+        for k,v in lexicon['preps'].items():
+           lanToEngDict[v].append(k)
+
+        for k,v in lexicon['preplist'].items():
+           lanToEngDict[v].append(k)
+
+        for k,v in lexicon['pros'].items():
+           lanToEngDict[v].append(k)
+
+        for k,v in lexicon['negations'].items():
+           lanToEngDict[v].append(k)
+
+
+
+        self.lanToEng()
+
 
     def lanToEng(self):
-        
-        counted = -1
-        transDirect = 2 < 1
-        
-        reverseKeys = lexicon['adjectives'].keys(), lexicon['pros'].keys(),
-        lexicon['nouns'].keys(),lexicon['preps'].keys(),lexicon['verbs'].keys(),
-        lexicon['negations'].keys(),lexicon['preplist'].keys()
-        
-        reverseVals = lexicon['adjectives'].values(), lexicon['pros'].values(),
-        lexicon['nouns'].values(),lexicon['preps'].values(),lexicon['verbs'].values(),
-        lexicon['negations'].values(),lexicon['preplist'].values()
-        print(reverseVals)
-        counted += 1
-        vTok[reverseKeys] = [reverseVals]
-        print(vToK)
-
-        #if respond in vals:
-            
-       # print(k, v)
-            
-            
-            
+        self.splitter()
 
     def pastTense(self):
         global pastAns
